@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use App\Services\Phones\PhoneService;
-use App\Services\Phones\PhoneServiceInterface;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class RepositoryServiceProvider extends ServiceProvider
 {
     /**
      * Все связывания контейнера, которые должны быть зарегистрированы.
@@ -15,11 +14,11 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
-        PhoneServiceInterface::class => PhoneService::class,
+        UserRepositoryInterface::class => UserRepository::class,
     ];
 
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
@@ -29,12 +28,12 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-        JsonResource::withoutWrapping();
+        //
     }
 }
