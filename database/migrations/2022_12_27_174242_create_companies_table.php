@@ -23,13 +23,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::create('company_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('company_id');
-            $table->foreignId('user_id');
-            $table->integer('role_id')->nullable()->comment('Роль пользователя в компании');
-        });
     }
 
     /**
@@ -39,7 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_user');
         Schema::dropIfExists('companies');
     }
 };

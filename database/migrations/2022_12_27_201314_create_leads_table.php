@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('company_form_id');
             $table->foreignId('user_id')->nullable()->comment('Пользователь, создавший заявку');
             $table->integer('status_id')->nullable()->comment('Идентификатор статуса заявки');
+            $table->ipAddress()->nullable()->comment('IP-адрес клиента, оставившего заявку');
+            $table->string('user_agent', 500)->nullable()->comment('Пользовательское приложение клиента');
             $table->timestamps();
             $table->softDeletes();
         });
