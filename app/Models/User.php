@@ -50,6 +50,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Опрееляет администратора сайта
+     * 
+     * @return bool
+     */
+    public function isAdministrator()
+    {
+        return $this->is_admin;
+    }
+
+    /**
      * Роли, принадлежащие пользователю
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

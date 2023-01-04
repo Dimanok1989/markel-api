@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Company\CompanyFormController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,12 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::apiResources([
         'company' => CompanyController::class,
+    ]);
+
+    Route::resources([
+        'company.form' => CompanyFormController::class,
     ]);
 });
