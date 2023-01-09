@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\CompanyFormDestroyRequest;
 use App\Http\Requests\Company\CompanyFormUpdateRequest;
 use App\Http\Requests\Company\CompanyFormStoreRequest;
+use App\Http\Resources\Company\CompanyFormEditResource;
 use App\Http\Resources\Company\CompanyFormResource;
 use App\Models\Company;
 use App\Models\CompanyForm;
@@ -23,6 +24,17 @@ class CompanyFormController extends Controller
     public function __construct(
         protected CompanyFormInterface $service,
     ) {
+    }
+
+    /**
+     * Вывод данных для создания новой формы
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Http\Resources\Company\CompanyFormEditResource
+     */
+    public function create(Request $request)
+    {
+        return new CompanyFormEditResource(null);
     }
 
     /**
@@ -71,5 +83,20 @@ class CompanyFormController extends Controller
         return new CompanyFormResource(
             $this->service->destroy($form)
         );
+    }
+
+    /**
+     * Выводит даныне для редактирования формы
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $form
+     * @return \App\Http\Resources\Company\CompanyFormEditResource
+     */
+    public function edit(Request $request, Company $company, CompanyForm $form)
+    {
+        $this->authorize('view', $form);
+
+        return new CompanyFormEditResource($form);
     }
 }

@@ -42,9 +42,11 @@ class CompanyFormPolicy
      * @param  \App\Models\CompanyForm  $companyForm
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CompanyForm $companyForm)
+    public function view(User $user, CompanyForm $form)
     {
-        //
+        if (($form->company->user_id ?? null) === $user->id) {
+            return true;
+        }
     }
 
     /**
