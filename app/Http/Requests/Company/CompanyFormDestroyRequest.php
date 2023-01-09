@@ -4,7 +4,7 @@ namespace App\Http\Requests\Company;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCompanyFormRequest extends FormRequest
+class CompanyFormDestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,9 @@ class StoreCompanyFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return optional($this->company)->id === optional($this->form)->id
+            && $this->user()->can('view', $this->company)
+            && $this->user()->can('delete', $this->form);
     }
 
     /**

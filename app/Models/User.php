@@ -78,4 +78,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Permission::class, 'permission_user')->withTimestamps();
     }
+
+    /**
+     * Компании пользователя
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'company_user')->withPivot('role_id');
+    }
 }

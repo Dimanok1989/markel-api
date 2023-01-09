@@ -14,11 +14,13 @@ class PermissionsSeeder extends Seeder
      * @var array
      */
     protected $permissions = [
-        ['id' => 1, 'permission' => "company_create", 'title' => "Может создавать компанию"],
-        ['id' => 2, 'permission' => "company_edit", 'title' => "Может обновлять данные компании"],
-        ['id' => 3, 'permission' => "company_delete", 'title' => "Может удалять компанию"],
-        ['id' => 4, 'permission' => "company_access_owner", 'title' => "Имеет доступ к компаниям владельца"],
-        ['id' => 5, 'permission' => "company_added_form", 'title' => "Может добавлять форму в компанию"],
+        ['permission' => "company_create", 'title' => "Может создавать компанию"],
+        ['permission' => "company_edit", 'title' => "Может обновлять данные компании"],
+        ['permission' => "company_delete", 'title' => "Может удалять компанию"],
+        ['permission' => "company_access_owner", 'title' => "Имеет доступ к компаниям владельца"],
+        ['permission' => "company_form_create", 'title' => "Может добавлять форму в компанию"],
+        ['permission' => "company_form_edit", 'title' => "Может изменять данные формы компании"],
+        ['permission' => "company_form_delete", 'title' => "Может удалять форму компании"],
     ];
 
     /**
@@ -28,9 +30,15 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->permissions as $permission) {
-            if (!Permission::find($permission['id'])) {
-                Permission::create($permission);
+        foreach ($this->permissions as $key => $permission) {
+            
+            $permission_id = $key + 1;
+
+            if (!Permission::find($permission_id)) {
+                Permission::create([
+                    'id' => $permission_id,
+                    ...$permission
+                ]);
             }
         }
     }

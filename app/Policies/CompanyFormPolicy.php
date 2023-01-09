@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Company;
+use App\Models\CompanyForm;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CompanyPolicy
+class CompanyFormPolicy
 {
     use HandlesAuthorization;
 
@@ -39,18 +39,12 @@ class CompanyPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $companyForm
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Company $company)
+    public function view(User $user, CompanyForm $companyForm)
     {
-        if ($user->id === $company->user_id) {
-            return true;
-        } else if ($user->companies()->wherePivot('company_id', $company->id)->exists()) {
-            return $user->getPermits('company_access_owner')->get('company_access_owner');
-        }
-        
-        return false;
+        //
     }
 
     /**
@@ -61,41 +55,49 @@ class CompanyPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->getPermits('company_form_create')->get('company_form_create');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $form
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Company $company)
+    public function update(User $user, CompanyForm $form)
     {
-        //
+        if (($form->company->user_id ?? null) === $user->id) {
+            return true;
+        }
+
+        return $user->getPermits('company_form_edit')->get('company_form_edit');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $companyForm
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Company $company)
+    public function delete(User $user, CompanyForm $form)
     {
-        //
+        if (($form->company->user_id ?? null) === $user->id) {
+            return true;
+        }
+
+        return $user->getPermits('company_form_delete')->get('company_form_delete');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $companyForm
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Company $company)
+    public function restore(User $user, CompanyForm $companyForm)
     {
         //
     }
@@ -104,10 +106,10 @@ class CompanyPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $companyForm
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Company $company)
+    public function forceDelete(User $user, CompanyForm $companyForm)
     {
         //
     }

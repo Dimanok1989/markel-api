@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Services\Company\CompanyService;
+use App\Services\CompanyForm\CompanyFormService;
+use App\Services\Interfaces\CompanyFormInterface;
 use App\Services\Interfaces\CompanyInterface;
 use App\Services\Phones\PhoneService;
 use App\Services\Phones\PhoneServiceInterface;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
+        CompanyFormInterface::class => CompanyFormService::class,
         CompanyInterface::class => CompanyService::class,
         PhoneServiceInterface::class => PhoneService::class,
     ];
