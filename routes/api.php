@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\CompanyFormController;
+use App\Http\Controllers\CompanyFormInputController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,5 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::resources([
         'company.form' => CompanyFormController::class,
+        'form.input' => CompanyFormInputController::class,
     ]);
 });

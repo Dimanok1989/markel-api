@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('company_form_id')->nullable();
             $table->string('name', 50)->comment('Наименование поля');
             $table->string('description')->nullable()->comment('Описание поля ввода');
-            $table->integer('type')->comment('Тип поля ввода');
+            $table->string('type')->comment('Тип поля ввода');
             $table->jsonb('attributes')->nullable()->comment('Дополнительные параметры поля ввода');
             $table->boolean('is_active')->default(false)->comment('Активное поле ввода');
             $table->boolean('is_public')->default(false)->comment('Может быть заполнено с публичной страницы');

@@ -22,7 +22,7 @@ class RolesSeeder extends Seeder
      * Стандартный набор разрешенеий для роли
      */
     protected $roles_permissions = [
-        1 => [1, 2, 3, 4, 5],
+        1 => [1, 2, 3, 4, 5, 6, 7, 8],
         2 => [4],
     ];
 

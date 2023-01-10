@@ -21,6 +21,9 @@ class PermissionsSeeder extends Seeder
         ['permission' => "company_form_create", 'title' => "Может добавлять форму в компанию"],
         ['permission' => "company_form_edit", 'title' => "Может изменять данные формы компании"],
         ['permission' => "company_form_delete", 'title' => "Может удалять форму компании"],
+        ['permission' => "company_form_input_create", 'title' => "Может добавлять поле ввода в форму компании"],
+        ['permission' => "company_form_input_edit", 'title' => "Может измнять поле ввода в форме компании"],
+        ['permission' => "company_form_input_delete", 'title' => "Может удалять поле ввода в форме компании"],
     ];
 
     /**

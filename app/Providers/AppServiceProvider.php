@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Services\Company\CompanyService;
 use App\Services\CompanyForm\CompanyFormService;
+use App\Services\CompanyForm\FormInputService;
 use App\Services\Interfaces\CompanyFormInterface;
 use App\Services\Interfaces\CompanyInterface;
+use App\Services\Interfaces\FormInputInterface;
 use App\Services\Phones\PhoneService;
 use App\Services\Phones\PhoneServiceInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public $bindings = [
         CompanyFormInterface::class => CompanyFormService::class,
         CompanyInterface::class => CompanyService::class,
+        FormInputInterface::class => FormInputService::class,
         PhoneServiceInterface::class => PhoneService::class,
     ];
 

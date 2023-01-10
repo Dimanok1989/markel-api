@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\CompanyFormInputRepository;
 use App\Repositories\CompanyRepository;
+use App\Repositories\Interfaces\CompanyFormInputRepositoryInterface;
 use App\Repositories\Interfaces\CompanyRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
+        CompanyFormInputRepositoryInterface::class => CompanyFormInputRepository::class,
         CompanyRepositoryInterface::class => CompanyRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
     ];
