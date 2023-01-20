@@ -27,6 +27,18 @@ class CompanyFormController extends Controller
     }
 
     /**
+     * Данные формы ввода
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Company  $company
+     * @param  \App\Models\CompanyForm  $form
+     */
+    public function show(Request $request, Company $company, CompanyForm $form)
+    {
+        return new CompanyFormResource($form);
+    }
+
+    /**
      * Вывод данных для создания новой формы
      * 
      * @param  \Illuminate\Http\Request  $request

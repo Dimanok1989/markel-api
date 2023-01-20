@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Company;
 
+use App\Http\Resources\Company\Inputs\CompanyFormInputCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyFormResource extends JsonResource
@@ -14,6 +15,9 @@ class CompanyFormResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            ...parent::toArray($request),
+            'inputs' => new CompanyFormInputCollection($this->resource->inputs ?? null),
+        ];
     }
 }

@@ -45,6 +45,16 @@ class CompanyForm extends Model
     }
 
     /**
+     * Выводит поля ввода формы
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function inputs()
+    {
+        return $this->hasMany(CompanyFormInput::class)->orderBy('sorting');
+    }
+
+    /**
      * Определяет следующий порядковый номер сортировки
      * 
      * @param  int  $company_id

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Company\CompanyFormController;
-use App\Http\Controllers\CompanyFormInputController;
+use App\Http\Controllers\Company\CompanyFormInputController;
+use App\Http\Controllers\Leads\LeadsController;
+use App\Http\Controllers\Leads\LeadsFormController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('login', [UsersController::class, "login"]);
 });
 
+Route::get('lead/form{form}/create', [LeadsFormController::class, "create"]);
+Route::post('lead/form{form}/create', [LeadsFormController::class, "store"]);
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResources([
@@ -36,5 +41,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resources([
         'company.form' => CompanyFormController::class,
         'form.input' => CompanyFormInputController::class,
+        'lead' => LeadsController::class,
     ]);
 });

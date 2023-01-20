@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\Inputs\CompanyFormInputCreateRequest;
 use App\Http\Requests\Company\Inputs\CompanyFormInputUpdateRequest;
 use App\Http\Resources\Company\Inputs\CompanyFormInputEditResource;

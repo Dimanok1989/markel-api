@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Company\Inputs;
 
 use App\Models\CompanyFormInput;
+use App\Rules\FormInputAttributes;
 use App\Services\Enums\CompanyFormInputs;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,7 +32,9 @@ class CompanyFormInputCreateRequest extends FormRequest
             'name' => ["required", "string", "min:1", "max:50"],
             'description' => ["nullable", "string", "max:255"],
             'type' => ["required", "in:" . CompanyFormInputs::in()],
-            'attributes' => ["nullable", "array"],
+            'attributes' => [new FormInputAttributes],
+            'options' => ["required_if:type," . implode(",", CompanyFormInputs::typesForOptions()), "array"],
+            'options.*' => ["nullable", "array:text,value"],
             'is_active' => ["nullable", "boolean"],
             'is_public' => ["nullable", "boolean"],
             'sorting' => ["nullable"],

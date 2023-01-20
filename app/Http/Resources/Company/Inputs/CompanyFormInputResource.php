@@ -14,6 +14,18 @@ class CompanyFormInputResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "id" => $this->id,
+            "key" => $this->input_key,
+            "form_id" => $this->company_form_id,
+            "name" => $this->name,
+            "description" => $this->description,
+            "type" => $this->type,
+            "attributes" => $this->attributes,
+            "options" => $this->options,
+            "is_active" => $this->is_active,
+            "is_public" => $this->is_public,
+            "sorting" => $this->sorting,
+        ];
     }
 }

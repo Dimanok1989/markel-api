@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Services\Enums\CompanyFormInputs;
+use App\Services\Enums\CompanyFormInputs as Types;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +24,7 @@ class CompanyFormInput extends Model
         'description',
         'type',
         'attributes',
+        'options',
         'is_active',
         'is_public',
         'sorting',
@@ -34,11 +36,22 @@ class CompanyFormInput extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'type' => CompanyFormInputs::class,
-        'attributes' => AsArrayObject::class,
+        'type' => Types::class,
+        'attributes' => AsCollection::class,
+        'options' => AsArrayObject::class,
         'is_active' => 'boolean',
         'is_public' => 'boolean',
     ];
+
+    /**
+     * Идентификатор поля ввода
+     * 
+     * @return string
+     */
+    public function getInputKeyAttribute()
+    {
+        return "input_" . $this->id;
+    }
 
     /**
      * Форма компании, к которой принадлежит поле ввода
@@ -48,6 +61,49 @@ class CompanyFormInput extends Model
     public function form()
     {
         return $this->hasOne(CompanyForm::class, 'id');
+    }
+
+    /**
+     * Данные заявки, принадлежащие полю ввода
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function data()
+    {
+        return $this->hasOne(LeadData::class, 'input_id');
+    }
+
+    /**
+     * Данные поля ввода по заявки
+     * 
+     * @param  int  $lead_id
+     * @return \App\Models\LeadData
+     */
+    public function dataFromLead(int $lead_id)
+    {
+        return $this->data()->firstOrNew(['lead_id' => $lead_id]);
+    }
+
+    /**
+     * Значение данных по заявке
+     * 
+     * @param  int  $lead_id
+     * @return mixed
+     */
+    public function getValueFromLead(int $lead_id)
+    {
+        $value = $this->dataFromLead($lead_id)->value ?? null;
+
+        $variable = match ($this->type) {
+            Types::select_multiple, Types::checkbox => function ($value) {
+                return json_decode($value, true);
+            },
+            default => $value,
+        };
+
+        return $variable instanceof \Closure
+            ? call_user_func($variable, $value)
+            : $variable;
     }
 
     /**

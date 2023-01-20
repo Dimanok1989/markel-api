@@ -8,6 +8,8 @@ use App\Services\CompanyForm\FormInputService;
 use App\Services\Interfaces\CompanyFormInterface;
 use App\Services\Interfaces\CompanyInterface;
 use App\Services\Interfaces\FormInputInterface;
+use App\Services\Interfaces\LeadInterface;
+use App\Services\Leads\LeadService;
 use App\Services\Phones\PhoneService;
 use App\Services\Phones\PhoneServiceInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         CompanyFormInterface::class => CompanyFormService::class,
         CompanyInterface::class => CompanyService::class,
         FormInputInterface::class => FormInputService::class,
+        LeadInterface::class => LeadService::class,
         PhoneServiceInterface::class => PhoneService::class,
     ];
 
