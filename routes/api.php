@@ -6,6 +6,7 @@ use App\Http\Controllers\Company\CompanyFormInputController;
 use App\Http\Controllers\Leads\LeadsController;
 use App\Http\Controllers\Leads\LeadsFormController;
 use App\Http\Controllers\UsersController;
+use App\Http\Resources\AppResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('app', function () {
+    return new AppResource(null);
+});
 
 Route::group(['prefix' => 'user'], function () {
     Route::middleware('auth:sanctum')->group(function () {
